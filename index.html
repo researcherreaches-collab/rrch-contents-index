@@ -446,8 +446,11 @@
     function renderHero() {
       const arts = sorted();
       if (!arts.length) return;
-      const main = arts[0];
-      const subs = arts.slice(1, 4);
+      // Hero shows articles with cover images for visual impact
+      const withCover = arts.filter(a => a.cover);
+      const main = withCover[0] || arts[0];
+      const subPool = withCover.length > 1 ? withCover.slice(1, 4) : arts.slice(1, 4);
+      const subs = subPool;
       document.getElementById('hero-section').innerHTML = `
         <div class="hero-featured">
           <a href="${url(main)}" target="_blank" class="hero-main">
